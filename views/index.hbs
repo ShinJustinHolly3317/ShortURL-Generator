@@ -1,0 +1,10 @@
+<form action="/generate-url" method="POST">
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">URL:</span>
+    <input type="text" class="form-control" placeholder="Enter the website your want to create" aria-label="Username" aria-describedby="basic-addon1" name="url" value="{{ newUrl }}" style="width: 60%">
+  </div>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ newShorten }}" style="width: 60%" disabled>
+  </div>
+  <button type="submit">Generate</button>
+</form>
