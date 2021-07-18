@@ -4,8 +4,8 @@ const router = express.Router()
 
 
 router.get('/', (req, res) => {
-  const newShorten = req.cookies.urlMessage.newShorten
-  const newUrl = req.cookies.urlMessage.newUrl
+  const newShorten = req.cookies.urlMessage? req.cookies.urlMessage.newShorten : ''
+  const newUrl = req.cookies.urlMessage? req.cookies.urlMessage.newUrl : ''
   res.render('index', { newShorten, newUrl})
 })
 

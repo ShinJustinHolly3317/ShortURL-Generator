@@ -4,11 +4,31 @@
       <span class="input-group-text" id="basic-addon1">URL:</span>
       <input type="text" class="form-control" placeholder="Enter the website your want to create" aria-label="Username" aria-describedby="basic-addon1" name="url" value="{{ newUrl }}">
     </div>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 newShorten">
       <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ newShorten }}" disabled>
     </div>
     <div class="input-group mb-3">
-      <button type="submit" class="btn btn-secondary gene-btn">Generate</button>
+      {{#if newShorten}}
+        <a class="btn btn-secondary copy-btn">Copy</a>
+      {{else}}  
+        <button type="submit" class="btn btn-secondary gene-btn">Generate</button>
+      {{/if}}
     </div>
   </form>
 </div>
+
+<div class="editor"></div>
+
+<script>
+  /* html elements */
+  const copyBtn = document.querySelector('.copy-btn')
+  const newShortenEle = document.querySelector('.newShorten input')
+
+
+  /* listeners */
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(newShortenEle.value)
+    .then(() => console.log('Copied successfully~'))
+  })
+  
+</script>
