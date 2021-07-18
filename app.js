@@ -24,52 +24,52 @@ app.use(express.static('public'))
 /* Body parser */
 app.use(express.urlencoded({ extended: true }))
 
-/* Random String creator */
-const randStrGen = require('./models/randomStr') 
-const nonRepeatString = require('./models/nonRepeatString')
+/* Cookie parser */
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 
+/* Routes */
+const routes = require('./routes')
+app.use(routes)
 
-// Router
-app.get('/', (req, res) => {
-  console.log(newShorten);
-  res.render('index', { newUrl, newShorten })
-})
+// app.get('/', (req, res) => {
+//   console.log(newShorten);
+//   res.render('index', { newUrl, newShorten })
+// })
 
-app.post('/generate-url', (req, res) => {
-  // Get POST data
-  const reqUrl = req.body.url
-  console.log(reqUrl);
-  // Check if randStr exists
-  let shortenCollection = []
+// app.post('/generate-url', (req, res) => {
+//   // Get POST data
+//   const reqUrl = req.body.url
+//   console.log(reqUrl);
+//   // Check if randStr exists
+//   let shortenCollection = []
 
-  // check repeat
-  urlSchema.find()
-  .then(urls => {
-    urls.forEach(url => {
-      shortenCollection.push(url.shorten)
-    })
-    console.log(shortenCollection);
-  })
-
-  // 1. instance.save()
-  // let url1 = new urlSchema({ href: 'http://4654', shorten: 'xxgjhkx'})
-  // url1.save()
-
-  // 2. Schema.create()
-  urlSchema.create({
-    href: reqUrl,
-    shorten: nonRepeatString(5, shortenCollection)
-  })
-  .then(urlC => {
-    console.log(urlC);
-    newShorten = 'https://arcane-harbor-5566.herokuapp.com/' + urlC.shorten 
-    newUrl = urlC.href
-    res.redirect('/')
-  })
-  .catch(err => {
-    console.log(err);
-  })
-})
+//   // check repeat
+//   urlSchema.find()
+//   .then(urls => {
+//     urls.forEach(url => {
+//       shortenCollection.push(url.shorten)
+//     })
+//     console.log(`collection after push: ${shortenCollection}`);
+//   })
+//   .then(() => {
+//     // After collection for repeat check is done
+//     urlSchema.create({
+//       href: reqUrl,
+//       shorten: nonRepeatString(5, shortenCollection)
+//     })
+//     .then(urlC => {
+//       console.log(urlC);
+//       newShorten = 'https://arcane-harbor-5566.herokuapp.com/' + urlC.shorten 
+//       newUrl = urlC.href
+//       res.redirect('/')
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     })
+//   })
+// })
+  
 app.listen(PORT, () => {
   console.log(`This server is running on ${PORT}`);
 })
