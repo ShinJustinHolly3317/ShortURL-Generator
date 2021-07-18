@@ -14,6 +14,7 @@ const nonRepeatString = require('../../models/nonRepeatString')
 const urlSchema = require('../../models/schema')
 
 
+// Route: generate url 
 router.post('/generate-url', (req, res) => {
   // Get POST data
   const reqUrl = req.body.url
@@ -37,7 +38,7 @@ router.post('/generate-url', (req, res) => {
     })
     .then(urlC => {
       console.log(urlC);
-      newShorten = 'https://arcane-harbor-5566.herokuapp.com/' + urlC.shorten 
+      newShorten = 'https://sleepy-fjord-90832.herokuapp.com/' + urlC.shorten 
       newUrl = urlC.href
       // Set cookie for broswer but only with a duration of 60secs
       res.cookie('urlMessage', { newShorten: newShorten, newUrl: newUrl}, { maxAge: 60000 })
@@ -49,5 +50,20 @@ router.post('/generate-url', (req, res) => {
   })
 })
   
+// Route: link to shorten url
+router.get('/:shorten', (req, res) => {
+  const shorten = req.params.shorten
+  urlSchema.find({shorten: [shorten]}, function (err, docs) {
+    if (docs) {
+      let originUrl = docs[0].href
+      res.redirect(originUrl)
+    }
+    else {
+      console.log(err);
+      return
+    }
+  })
+})
+
 
 module.exports = router

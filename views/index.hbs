@@ -4,16 +4,23 @@
       <span class="input-group-text" id="basic-addon1">URL:</span>
       <input type="text" class="form-control" placeholder="Enter the website your want to create" aria-label="Username" aria-describedby="basic-addon1" name="url" value="{{ newUrl }}">
     </div>
-    <div class="input-group mb-3 newShorten">
+    <div class="input-group mb-3 newShorten {{#if newShorten}}{{else}}hidden{{/if}}">
       <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ newShorten }}" disabled>
     </div>
-    <div class="input-group mb-3">
-      {{#if newShorten}}
-        <a class="btn btn-secondary copy-btn">Copy</a>
-      {{else}}  
-        <button type="submit" class="btn btn-secondary gene-btn">Generate</button>
-      {{/if}}
+
+    {{#if newShorten}}
+    <div class="input-group mb-3 copy-btn">
+      <a class="btn btn-secondary">Copy</a>
+    </div>  
+    {{else}} 
+    <div class="input-group mb-3 gene-btn">
+      <button type="submit" class="btn btn-secondary">Generate</button>
     </div>
+    {{/if}}
+    <div class="input-group mb-3 hidden copied-btn">
+      <a class="btn btn-secondary">Copied</a>
+    </div>
+        
   </form>
 </div>
 
@@ -22,13 +29,18 @@
 <script>
   /* html elements */
   const copyBtn = document.querySelector('.copy-btn')
+  const copiedBtn = document.querySelector('.copied-btn')
   const newShortenEle = document.querySelector('.newShorten input')
 
 
   /* listeners */
   copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(newShortenEle.value)
-    .then(() => console.log('Copied successfully~'))
+    .then(() => {
+      copyBtn.classList.toggle('hidden')
+      copiedBtn.classList.toggle('hidden')
+      console.log('Copied successfully~')
+    })
   })
-  
+
 </script>
