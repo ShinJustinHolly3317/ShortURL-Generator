@@ -32,44 +32,7 @@ app.use(cookieParser())
 const routes = require('./routes')
 app.use(routes)
 
-// app.get('/', (req, res) => {
-//   console.log(newShorten);
-//   res.render('index', { newUrl, newShorten })
-// })
-
-// app.post('/generate-url', (req, res) => {
-//   // Get POST data
-//   const reqUrl = req.body.url
-//   console.log(reqUrl);
-//   // Check if randStr exists
-//   let shortenCollection = []
-
-//   // check repeat
-//   urlSchema.find()
-//   .then(urls => {
-//     urls.forEach(url => {
-//       shortenCollection.push(url.shorten)
-//     })
-//     console.log(`collection after push: ${shortenCollection}`);
-//   })
-//   .then(() => {
-//     // After collection for repeat check is done
-//     urlSchema.create({
-//       href: reqUrl,
-//       shorten: nonRepeatString(5, shortenCollection)
-//     })
-//     .then(urlC => {
-//       console.log(urlC);
-//       newShorten = 'https://arcane-harbor-5566.herokuapp.com/' + urlC.shorten 
-//       newUrl = urlC.href
-//       res.redirect('/')
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-// })
-  
+// Listen to server
 app.listen(PORT, () => {
   console.log(`This server is running on ${PORT}`);
 })
