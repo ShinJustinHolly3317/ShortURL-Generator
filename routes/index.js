@@ -6,8 +6,8 @@ const router = express.Router()
 const home = require('./modules/home')
 const crud = require('./modules/crud')
 
+// use routes
 router.use('/', home, crud)
-
 
 
 module.exports = router

@@ -18,9 +18,13 @@ const urlSchema = require('../../models/schema')
 router.post('/generate-url', (req, res) => {
   // Get POST data
   const reqUrl = req.body.url
-  console.log(reqUrl);
   // Check if randStr exists
   let shortenCollection = []
+
+  // check if url is empty
+  if (!reqUrl.length) {
+    return res.render('errMess')
+  }
 
   // check repeat
   urlSchema.find()
@@ -28,7 +32,6 @@ router.post('/generate-url', (req, res) => {
     urls.forEach(url => {
       shortenCollection.push(url.shorten)
     })
-    console.log(`collection after push: ${shortenCollection}`);
   })
   .then(() => {
     // After collection for repeat check is done
@@ -37,8 +40,8 @@ router.post('/generate-url', (req, res) => {
       shorten: nonRepeatString(5, shortenCollection)
     })
     .then(urlC => {
-      console.log(urlC);
-      newShorten = 'https://sleepy-fjord-90832.herokuapp.com/' + urlC.shorten 
+      // check if executed on HEROKU or on local
+      newShorten = process.env.PORT? 'https://sleepy-fjord-90832.herokuapp.com/' + urlC.shorten : 'localhost:3000/' + urlC.shorten
       newUrl = urlC.href
       // Set cookie for broswer but only with a duration of 60secs
       res.cookie('urlMessage', { newShorten: newShorten, newUrl: newUrl}, { maxAge: 60000 })
@@ -50,10 +53,10 @@ router.post('/generate-url', (req, res) => {
   })
 })
   
-// Route: link to shorten url
+// Route: link to shortened url
 router.get('/:shorten', (req, res) => {
   const shorten = req.params.shorten
-  urlSchema.find({shorten: [shorten]}, function (err, docs) {
+  urlSchema.find({shorten: shorten}, function (err, docs) {
     if (docs) {
       let originUrl = docs[0].href
       res.redirect(originUrl)
