@@ -15,3 +15,14 @@
 .navbar a {
   color: white;
 }
+
+.btn-group {
+  width: 50%;
+  margin: auto;
+  
+  display: flex;
+}
+
+.gen-btn {
+  margin: 0;
+}

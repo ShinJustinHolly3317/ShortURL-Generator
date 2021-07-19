@@ -8,17 +8,23 @@
       <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ newShorten }}" disabled>
     </div>
 
-    {{#if newShorten}}
-    <div class="input-group mb-3 copy-btn">
-      <a class="btn btn-secondary">Copy</a>
-    </div>  
-    {{else}} 
-    <div class="input-group mb-3 gene-btn">
-      <button type="submit" class="btn btn-secondary">Generate</button>
-    </div>
-    {{/if}}
-    <div class="input-group mb-3 hidden copied-btn">
-      <a class="btn btn-secondary">Copied</a>
+    <div class="btn-group">
+      {{#if newShorten}}
+      <div class="input-group mb-3 copy-btn">
+        <a class="btn btn-secondary">Copy</a>
+      </div> 
+      <div class="input-group mb-3 hidden copied-btn">
+        <a class="btn btn-secondary">Copied</a>
+      </div>
+      <div class="input-group mb-3 re-gen">
+        <a class="btn btn-secondary">Generate another</a>
+      </div>
+      {{else}} 
+      <div class="input-group mb-3 gen-btn">
+        <button type="submit" class="btn btn-secondary">Generate</button>
+      </div>
+      {{/if}}
+      
     </div>
         
   </form>
